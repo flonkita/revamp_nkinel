@@ -1,0 +1,124 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}About
+{% endblock %}
+
+{% block content %}
+	<div class="container-fluid">
+
+		<h1 class="h3 mb-0 text-gray-800">Mes catégories</h1>
+
+		<p class="mb-4">Ajouter,modifier et supprimer des catégories dans votre page à propos.</p>
+
+
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-success">
+					<a href="{{path('admin_new_about')}}" class="m-0 font-weight-bold text-success ">Ajouter une catégorie</a>
+				</h6>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Catégorie</th>
+
+								<th colspan="2">Action</th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<th>ID</th>
+								<th>Catégorie</th>
+
+								<th colspan="2">Action</th>
+							</tr>
+						</tfoot>
+						<tbody>
+							{% for about in abouts %}
+								<tr>
+
+									<td>{{about.id}}</td>
+									<td>{{about.category}}</td>
+									<td>
+										<a href="{{path('admin_delete_about',{'id':about.id})}}" class="btn btn-danger btn-icon-split">
+											<span class="icon text-white-50">
+												<i class="fas fa-trash"></i>
+											</span>
+
+
+										</a>
+										<a href="{{path('admin_edit_about', {'id':about.id})}}" class="btn btn-warning btn-icon-split">
+											<span class="icon text-white-50">
+												<i class="fa-solid fa-pen-to-square"></i>
+											</span>
+										</a>
+									</td>
+								</tr>
+
+								
+							{% endfor %}
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+	</div>
+{% endblock %}
+{% block script_js %}
+	{% if app.session.flashBag.has('delete_about') %}
+		<script>
+			Toastify({
+text: "{{ app.session.flashBag.get('delete_about')[0] }}",
+duration: 3000,
+destination: "https://github.com/apvarun/toastify-js",
+newWindow: true,
+close: true,
+gravity: "top",
+position: "center",
+stopOnFocus: true,
+style: {
+background: "linear-gradient(to right, #FF0000, #DC143C)"
+}
+}).showToast();
+		</script>
+	{% endif %}
+	{% if app.session.flashBag.has('create_about') %}
+		<script>
+			Toastify({
+text: "{{ app.session.flashBag.get('create_about')[0] }}",
+duration: 3000,
+destination: "https://github.com/apvarun/toastify-js",
+newWindow: true,
+close: true,
+gravity: "top",
+position: "center",
+stopOnFocus: true,
+style: {
+background: "linear-gradient(to right, #03C03C, #50C878)"
+}
+}).showToast();
+		</script>
+	{% endif %}
+	{% if app.session.flashBag.has('edit_about') %}
+		<script>
+			Toastify({
+text: "{{ app.session.flashBag.get('edit_about')[0] }}",
+duration: 3000,
+destination: "https://github.com/apvarun/toastify-js",
+newWindow: true,
+close: true,
+gravity: "top",
+position: "center",
+stopOnFocus: true,
+style: {
+background: "linear-gradient(to right, #FEBE10, #F0E68C)"
+}
+}).showToast();
+		</script>
+	{% endif %}
+{% endblock %}

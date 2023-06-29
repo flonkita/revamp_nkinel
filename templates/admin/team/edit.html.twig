@@ -1,0 +1,42 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Production
+{% endblock %}
+
+{% block content %}
+	<div class="container-fluid">
+	<div class="container">
+	<div class="container-fluid p-3  w-100 mx-auto bg-white border rounded">
+
+	<h1 class="h3 mb-0 text-gray-800">Mon Équipe</h1>
+
+
+				<p class="mb-4">Ajouter,modifier et supprimer {{team.name}} de votre team.</p>
+
+		{{ form_start(form) }}
+
+		{# Vérifiez si le champ 'image' est vide #}
+		{% if form.vars.value.image is not empty %}
+			{% set isValueExists = form.vars.value.image is not empty %}
+		{% else %}
+			{% set isValueExists = false %}
+		{% endif %}
+
+
+		{# Si une valeur existe, affichez-la #}
+		{% if isValueExists %}
+			<p>Image actuelle :
+			</p>
+			<img src="{{ asset('assets/uploads/' ~ form.vars.value.image) }}" alt="image"/>
+		{% endif %}
+
+		{# Passez la valeur par défaut au champ 'image' #}
+		{{ form_row(form.image, { 'required': not isValueExists }) }}
+		{# Passez la valeur par défaut au champ 'image' #}
+
+		{{ form_end(form) }}
+
+	</div>
+	</div>
+	</div>
+{% endblock %}

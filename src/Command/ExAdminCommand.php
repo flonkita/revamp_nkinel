@@ -13,8 +13,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class AddUserCommand extends Command
 {
-    protected static $defaultName = 'ExAdmin';
-    protected static $defaultDescription = 'Create a user with the "ROLES';
+    protected static $defaultName = 'create:admin';
+    protected static $defaultDescription = 'Create a user with the "ROLES_ADMIN"';
 
     private $em;
 
@@ -41,9 +41,9 @@ class AddUserCommand extends Command
 
         $user= new User();
         $user->setPassword('test');
-        $user->setEmail('test2@mail.com');
+        $user->setEmail('test@mail.com');
         // $user->setRoles (array $roles 'ROLE_USER');
-        $user->setRoles(['ROLE_USER']);
+        $user->setRoles(['ROLE_ADMIN']);
 
           
         $this->em->flush();

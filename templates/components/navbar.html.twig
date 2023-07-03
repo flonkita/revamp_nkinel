@@ -24,15 +24,19 @@
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">User</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 {% if app.user %}
-                                <li><a class="dropdown-item" href="#">Déconnexion</a></li>
-                                {# <li><a class="dropdown-item" href="{{path ('user_list')}}">All Users</a></li> #}
+                                <li><a class="dropdown-item" href="{{ path('app_logout')}}">Déconnexion</a></li>
                                 {% else %}
-                                <li><a class="dropdown-item" href="{{asset ('app_register')}}"><i class="bi-person-plus me-1"></i>Register</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_register')}}"><i class="bi-person-plus me-1"></i>Register</a></li>
                                 <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#">Sign in</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_login')}}">Sign in</a></li>
                                 {% endif %}
                             </ul>
                         </li>
+                        {# {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item"><a class="nav-link" href="{{ path('admin_index')}}">Dashboard</a></li>
+                        {% else %}
+                        
+                        {% endif %} #}
                     </ul>
                     <form class="d-flex">
                         <a class="btn btn-outline-dark" type="submit" href="#">

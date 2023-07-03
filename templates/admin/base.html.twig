@@ -17,14 +17,14 @@
 
 		<!-- Custom fonts for this template-->
 
-		<link rel="icon" type="image/png" href="{{ asset('assets/images/logo-new-dark.png') }}"/>
+		<link rel="icon" type="image/png" href="{{ asset('img/logo.png') }}"/>
 		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 		<link href="{{ asset('admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 		<link
 		href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
 		<!-- Custom styles for this template-->
-		<link href="{{ asset('assets/admin/css/sb-admin-2.min.css') }}" rel="stylesheet">
+		<link href="{{ asset('admin/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
 	</head>
 
@@ -42,12 +42,12 @@
 					class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
 					<!-- Sidebar - Brand -->
-					<a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{path('app_index')}}">
+					<a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{path('home')}}">
 
 						<div class="sidebar-brand-text mx-3">
 
 
-							<img src="{{ asset('assets/images/logo.png') }}" alt="" width="133"/>
+							<img src="{{ asset('assets/img/logo.png') }}" alt="" width="133"/>
 
 
 						</div>
@@ -55,7 +55,7 @@
 
 					<!-- Divider -->
 					<hr
-					class="sidebar-divider my-0">
+					class="sidebar-divider my-0 mt-3">
 
 					<!-- Nav Item - Dashboard -->
 					<li class="nav-item active">
@@ -83,8 +83,8 @@
 						<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 							<div class="bg-white py-2 collapse-inner rounded">
 								<h6 class="collapse-header">Action :</h6>
-								<a class="collapse-item" href="{{path('admin_index_production')}}">Toutes mes vidéos</a>
-								<a class="collapse-item" href="{{path('admin_new_production')}}">Ajouter une vidéo</a>
+								<a class="collapse-item" href="#">Toutes mes vidéos</a>
+								<a class="collapse-item" href="#">Ajouter une vidéo</a>
 							</div>
 						</div>
 					</li>
@@ -98,8 +98,8 @@
 						<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 							<div class="bg-white py-2 collapse-inner rounded">
 								<h6 class="collapse-header">Action :</h6>
-								<a class="collapse-item" href="{{path('admin_index_team')}}">Voir tout les membres</a>
-								<a class="collapse-item" href="{{path('admin_new_team')}}">Ajouter un membre</a>
+								<a class="collapse-item" href="#">Voir tout les membres</a>
+								<a class="collapse-item" href="#">Ajouter un membre</a>
 							</div>
 						</div>
 					</li>
@@ -122,8 +122,8 @@
 						<div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
 							<div class="bg-white py-2 collapse-inner rounded">
 								<h6 class="collapse-header">Catégorie:</h6>
-								<a class="collapse-item" href="{{path('admin_index_about')}}">Voir mes catégories</a>
-								<a class="collapse-item" href="{{path('admin_new_about')}}">Ajouter une catégorie</a>
+								<a class="collapse-item" href="#">Voir mes catégories</a>
+								<a class="collapse-item" href="#">Ajouter une catégorie</a>
 								<div class="collapse-divider"></div>
 
 							</div>
@@ -132,7 +132,7 @@
 
 					<!-- Nav Item - Charts -->
 					<li class="nav-item">
-						<a class="nav-link" href="{{path('admin_index_contact')}}">
+						<a class="nav-link" href="#">
 							<i class="fas fa-fw fa-chart-area"></i>
 							<span>Contact</span>
 						</a>
@@ -252,31 +252,31 @@
 			</div>
 
 			<!-- Bootstrap core JavaScript-->
-			<script src="{{ asset('assets/admin/vendor/jquery/jquery.min.js') }}"></script>
+			<script src="{{ asset('admin/vendor/jquery/jquery.min.js') }}"></script>
 
-			<script src="{{ asset('assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+			<script src="{{ asset('admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
 
 			<!-- Core plugin JavaScript-->
-			<script src="{{ asset('assets/admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+			<script src="{{ asset('admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
 
 			<!-- Custom scripts for all pages-->
-			<script src="{{ asset('assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-			<script src="assets/admin/js/sb-admin-2.min.js"></script>
+			<script src="{{ asset('admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+			<script src="{{ asset('admin/js/sb-admin-2.min.js')}}"></script>
 
-			<script src="{{ asset('assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-			<script src="js/sb-admin-2.min.js"></script>
+			<script src="{{ asset('admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+			<script src="{{asset('js/sb-admin-2.min.js')}}"></script>
 
 			<!-- Page level plugins -->
-			<script src="{{ asset('assets/admin/vendor/chart.js/Chart.min.js') }}"></script>
+			<script src="{{ asset('admin/vendor/chart.js/Chart.min.js') }}"></script>
 
 
 			<!-- Page level custom scripts -->
-			<script src="{{ asset('assets/admin/js/demo/chart-area-demo.js') }}"></script>
+			<script src="{{ asset('admin/js/demo/chart-area-demo.js') }}"></script>
 
 
-			<script src="{{ asset('assets/admin/js/demo/chart-pie-demo.js') }}"></script>
+			<script src="{{ asset('admin/js/demo/chart-pie-demo.js') }}"></script>
 			<script src="https://kit.fontawesome.com/9297b904be.js" crossorigin="anonymous"></script>
 			<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 		{% endblock %}

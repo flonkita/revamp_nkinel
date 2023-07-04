@@ -1,0 +1,40 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Production
+{% endblock %}
+
+{% block content %}
+	<div class="container-fluid">
+	<div class="container">
+		<div class="container-fluid p-3  w-100 mx-auto bg-white border rounded">
+		<h1 class="h3 mb-0 text-gray-800">Articles</h1>
+
+			<p class="mb-2">Modifier mon article</p>
+
+		{{ form_start(formArticle) }}
+
+		{% if formArticle.vars.value.image is not empty %}
+			{% set isValueExists = formArticle.vars.value.image is not empty %}
+		{% else %}
+			{% set isValueExists = false %}
+		{% endif %}
+
+
+		{# Si une valeur existe, affichez-la #}
+		{% if isValueExists %}
+			<p>Image actuelle :
+			</p>
+			<img src="{{ asset('uploads/' ~ formArticle.vars.value.image) }}" alt="image"/>
+		{% endif %}
+
+		{# Passez la valeur par défaut au champ 'image' #}
+		{{ form_row(formArticle.image, { 'required': not isValueExists }) }}
+		{# Passez la valeur par défaut au champ 'image' #}
+
+
+		{{ form_end(formArticle) }}
+
+	</div>
+		</div>
+	</div>
+{% endblock %}

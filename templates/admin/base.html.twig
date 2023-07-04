@@ -78,13 +78,13 @@
 					<li class="nav-item">
 						<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
 							<i class="fas fa-fw fa-cog"></i>
-							<span>Vidéos</span>
+							<span>Articles</span>
 						</a>
 						<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 							<div class="bg-white py-2 collapse-inner rounded">
 								<h6 class="collapse-header">Action :</h6>
-								<a class="collapse-item" href="#">Toutes mes vidéos</a>
-								<a class="collapse-item" href="#">Ajouter une vidéo</a>
+								<a class="collapse-item" href="{{ path('admin_article_index') }}">Tout mes articles</a>
+								<a class="collapse-item" href="{{ path('admin_article_new')}}">Ajouter un article</a>
 							</div>
 						</div>
 					</li>

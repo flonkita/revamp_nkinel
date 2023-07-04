@@ -49,6 +49,11 @@ class Commande
      */
     private $token;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commandes")
+     */
+    private $user;
+
     public function __construct()
     {
         $this->commandeProduits = new ArrayCollection();
@@ -145,6 +150,18 @@ class Commande
     public function setToken(string $token): self
     {
         $this->token = $token;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

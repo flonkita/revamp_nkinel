@@ -1,6 +1,6 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Production
+{% block title %}Articles
 {% endblock %}
 
 {% block content %}
@@ -13,7 +13,7 @@
 			<!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-success"><a href="{{path('admin_article_new')}}" class="m-0 font-weight-bold text-success ">Ajouter une vidéo</a></h6>
+                            <h6 class="m-0 font-weight-bold text-success"><a href="{{path('admin_article_new')}}" class="m-0 font-weight-bold text-success ">Ajouter un article</a></h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -28,16 +28,6 @@
                                             <th colspan="2">Action</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Nom</th>
-                                            <th>Prix</th>
-                                            <th>Stock</th>
-                                            <th>Description</th>
-                                            <th colspan="2">Action</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                     {% for article in articles %}
                                         <tr>
@@ -72,10 +62,10 @@
 	</div>
 {% endblock %}
 {% block script_js %}
-	{% if app.session.flashBag.has('delete_production') %}
+	{% if app.session.flashBag.has('delete_article') %}
 		<script>
 			Toastify({
-text: "{{ app.session.flashBag.get('delete_production')[0] }}",
+text: "{{ app.session.flashBag.get('delete_article')[0] }}",
 duration: 3000,
 destination: "https://github.com/apvarun/toastify-js",
 newWindow: true,
@@ -89,10 +79,10 @@ background: "linear-gradient(to right, #FF0000, #DC143C)"
 }).showToast();
 		</script>
 	{% endif %}
-	{% if app.session.flashBag.has('create_production') %}
+	{% if app.session.flashBag.has('create_article') %}
 		<script>
 			Toastify({
-text: "{{ app.session.flashBag.get('create_production')[0] }}",
+text: "{{ app.session.flashBag.get('create_article')[0] }}",
 duration: 3000,
 destination: "https://github.com/apvarun/toastify-js",
 newWindow: true,
@@ -106,10 +96,10 @@ background: "linear-gradient(to right, #03C03C, #50C878)"
 }).showToast();
 		</script>
 	{% endif %}
-	{% if app.session.flashBag.has('edit_production') %}
+	{% if app.session.flashBag.has('edit_article') %}
 		<script>
 			Toastify({
-text: "{{ app.session.flashBag.get('edit_production')[0] }}",
+text: "{{ app.session.flashBag.get('edit_article')[0] }}",
 duration: 3000,
 destination: "https://github.com/apvarun/toastify-js",
 newWindow: true,

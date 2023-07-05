@@ -9,6 +9,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -29,7 +30,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/new", name="new", methods={"GET", "POST"})
      */
-    public function new(Request $request, ManagerRegistry $doctrine): Response
+    public function new(Request $request, ManagerRegistry $doctrine, SessionInterface $session): Response
     {
         #Etape 1 : Créer un objet vide
         $article = new Article;
@@ -65,7 +66,7 @@ class ArticleController extends AbstractController
             #etape 4: on valide a doctrine que l'on veut enregisterer/persister en BDD
             $entityManager->flush();
             #etape 5: on affiche ou on redirge vers une autre page 
-            $this->addFlash('create','Un article a fait son apparition !');
+            $session->getFlashBag()->add('create_article', 'L\'article a bien été ajouté.');
         return $this -> redirectToRoute('admin_article_index');
 
         }
@@ -77,19 +78,9 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="show", methods={"GET"})
-     */
-    public function show(Article $article): Response
-    {
-        return $this->render('admin/article/show.html.twig', [
-            'article' => $article,
-        ]);
-    }
-
-    /**
      * @Route("/{id}/edit", name="edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Article $article, ArticleRepository $articleRepository): Response
+    public function edit(Request $request, Article $article, ArticleRepository $articleRepository, SessionInterface $session): Response
     {
         $formArticle = $this->createForm(ArticleType::class, $article);
         $formArticle->handleRequest($request);
@@ -97,7 +88,8 @@ class ArticleController extends AbstractController
         if ($formArticle->isSubmitted() && $formArticle->isValid()) {
             $articleRepository->add($article, true);
 
-            return $this->redirectToRoute('admin_index', [], Response::HTTP_SEE_OTHER);
+            $session->getFlashBag()->add('edit_article', 'L\'article a bien été modifié.');
+            return $this->redirectToRoute('admin_article_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admin/article/edit.html.twig', [
@@ -107,14 +99,24 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="delete", methods={"POST"})
+     * @Route("/{id}/delete", name="delete")
      */
-    public function delete(Request $request, Article $article, ArticleRepository $articleRepository): Response
+    public function delete($id, Article $article, ManagerRegistry $doctrine, SessionInterface $session): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
-            $articleRepository->remove($article, true);
-        }
+         #Etape 1 : On appelle l'entity manager de doctrine
+         $entityManager = $doctrine->getManager();
 
-        return $this->redirectToRoute('admin_index', [], Response::HTTP_SEE_OTHER);
+         #Etape 2 : On récupère (grâce au repository de doctrine) l'objet que l'on souhaite modifier
+         $article = $doctrine->getRepository(Article::class)->find($id);
+
+         #Etape 3 : On supprime à l'aide de l'entity manager 
+         $entityManager->remove($article);
+
+         #Etape 4 : On valide les modifications
+         $entityManager->flush();
+
+         $session->getFlashBag()->add('delete_article', 'L\'article a bien été supprimé.');
+
+        return $this->redirectToRoute('admin_article_index', [], Response::HTTP_SEE_OTHER);
     }
 }

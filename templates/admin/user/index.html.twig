@@ -1,0 +1,126 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}User
+{% endblock %}
+
+{% block content %}
+	<div class="container-fluid">
+
+		<h1 class="h3 mb-0 text-gray-800">Les Utilisateurs</h1>
+
+		<p class="mb-4">Ajouter,modifier et supprimer des membres de vos Utilisateurs.</p>
+
+		<!-- DataTales Example -->
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-success">
+					Liste de tout les Utilisateurs
+				</h6>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Prenom</th>
+								<th>Email</th>
+								<th colspan="2">Action</th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<th>ID</th>
+								<th>Prenom</th>
+								<th>Email</th>
+								<th colspan="2">Action</th>
+							</tr>
+						</tfoot>
+						<tbody>
+							{% for user in users %}
+
+								<tr>
+
+
+									<td>{{user.id}}</td>
+									<td>{{user.prenom}}</td>
+									<td>{{user.email}}</td>
+
+									<td>
+										<a href="{{path('admin_user_delete',{'id':user.id})}}" class="btn btn-danger btn-icon-split">
+											<span class="icon text-white-50">
+												<i class="fas fa-trash"></i>
+											</span>
+
+
+										</a>
+										<a href="{{path('admin_user_edit',{'id':user.id})}}" class="btn btn-warning btn-icon-split">
+											<span class="icon text-white-50">
+												<i class="fa-solid fa-pen-to-square"></i>
+											</span>
+										</a>
+									</td>
+
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+	</div>
+{% endblock %}
+{% block script_js %}
+	{% if app.session.flashBag.has('delete_user') %}
+		<script>
+			Toastify({
+text: "{{ app.session.flashBag.get('delete_user')[0] }}",
+duration: 3000,
+destination: "https://github.com/apvarun/toastify-js",
+newWindow: true,
+close: true,
+gravity: "top",
+position: "center",
+stopOnFocus: true,
+style: {
+background: "linear-gradient(to right, #FF0000, #DC143C)"
+}
+}).showToast();
+		</script>
+	{% endif %}
+	{% if app.session.flashBag.has('create_user') %}
+		<script>
+			Toastify({
+text: "{{ app.session.flashBag.get('create_user')[0] }}",
+duration: 3000,
+destination: "https://github.com/apvarun/toastify-js",
+newWindow: true,
+close: true,
+gravity: "top",
+position: "center",
+stopOnFocus: true,
+style: {
+background: "linear-gradient(to right, #03C03C, #50C878)"
+}
+}).showToast();
+		</script>
+	{% endif %}
+	{% if app.session.flashBag.has('edit_user') %}
+		<script>
+			Toastify({
+text: "{{ app.session.flashBag.get('edit_user')[0] }}",
+duration: 3000,
+destination: "https://github.com/apvarun/toastify-js",
+newWindow: true,
+close: true,
+gravity: "top",
+position: "center",
+stopOnFocus: true,
+style: {
+background: "linear-gradient(to right, #FEBE10, #F0E68C)"
+}
+}).showToast();
+		</script>
+	{% endif %}
+{% endblock %}

@@ -47,7 +47,7 @@
 						<div class="sidebar-brand-text mx-3">
 
 
-							<img src="{{ asset('assets/img/logo.png') }}" alt="" width="133"/>
+							<img src="{{ asset('img/logo.png') }}" alt="" width="32"/>
 
 
 						</div>
@@ -99,7 +99,6 @@
 							<div class="bg-white py-2 collapse-inner rounded">
 								<h6 class="collapse-header">Action :</h6>
 								<a class="collapse-item" href="{{ path('admin_user_index') }}">Voir tout les membres</a>
-								<a class="collapse-item" href="#">Ajouter un membre</a>
 							</div>
 						</div>
 					</li>
@@ -132,7 +131,7 @@
 
 					<!-- Nav Item - Charts -->
 					<li class="nav-item">
-						<a class="nav-link" href="#">
+						<a class="nav-link" href="{{path('admin_index_contact')}}">
 							<i class="fas fa-fw fa-chart-area"></i>
 							<span>Contact</span>
 						</a>

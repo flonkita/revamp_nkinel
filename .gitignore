@@ -2,11 +2,15 @@
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
+/migrations
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/
 /vendor/
+/public/uploads/
+
+
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
@@ -18,3 +22,5 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+/node_modules
+/public/uploads/

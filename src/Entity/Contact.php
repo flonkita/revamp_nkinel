@@ -18,11 +18,6 @@ class Contact
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $sujet;
-
-    /**
      * @ORM\Column(type="string", length=100)
      */
     private $email;
@@ -35,18 +30,6 @@ class Contact
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getSujet(): ?string
-    {
-        return $this->sujet;
-    }
-
-    public function setSujet(string $sujet): self
-    {
-        $this->sujet = $sujet;
-
-        return $this;
     }
 
     public function getEmail(): ?string

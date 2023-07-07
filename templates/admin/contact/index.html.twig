@@ -1,0 +1,49 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Contact
+{% endblock %}
+
+{% block content %}
+	<div class="container-fluid">
+		<div class="container">
+			<div class="container-fluid p-3 m-4 w-100 mx-auto bg-white border rounded">
+				<h1 class="h3 mb-0 text-gray-800">Contact</h1>
+
+
+				<p class="mb-2">Modifier vos informations</p>
+				{{ form_start(form) }}
+					<div class ="row g-3">
+					<div class="col-6">
+					{{form_row(form.email)}}
+					</div>
+
+					</div>
+				{{ form_end(form) }}
+				</div>
+			</div>
+
+		</div>
+
+	{% endblock %}
+
+	{% block script_js %}
+
+
+		{% if app.session.flashBag.has('edit_contact') %}
+			<script>
+				Toastify({
+text: "{{ app.session.flashBag.get('edit_contact')[0] }}",
+duration: 3000,
+destination: "https://github.com/apvarun/toastify-js",
+newWindow: true,
+close: true,
+gravity: "top",
+position: "center",
+stopOnFocus: true,
+style: {
+background: "linear-gradient(to right, #FEBE10, #F0E68C)"
+}
+}).showToast();
+			</script>
+		{% endif %}
+	{% endblock %}

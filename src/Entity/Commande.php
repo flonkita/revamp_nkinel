@@ -20,11 +20,6 @@ class Commande
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $num_commande;
-
-    /**
      * @ORM\Column(type="date")
      */
     private $date;
@@ -35,7 +30,7 @@ class Commande
     private $total;
 
     /**
-     * @ORM\OneToMany(targetEntity=CommandeProduit::class, mappedBy="commande")
+     * @ORM\OneToMany(targetEntity=CommandeProduit::class, mappedBy="commande",  cascade={"persist"})
      */
     private $commandeProduits;
 
@@ -62,18 +57,6 @@ class Commande
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getNumCommande(): ?int
-    {
-        return $this->num_commande;
-    }
-
-    public function setNumCommande(int $num_commande): self
-    {
-        $this->num_commande = $num_commande;
-
-        return $this;
     }
 
     public function getDate(): ?\DateTimeInterface

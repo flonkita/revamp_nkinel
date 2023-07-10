@@ -17,7 +17,7 @@ class PanierController extends AbstractController
 
         return $this->render('panier/index.html.twig', [
             "items" => $panierService->showCart(),
-            "total" => $panierService->total(),
+            "total" => $panierService->totalcart(),
         ]);
 
     }

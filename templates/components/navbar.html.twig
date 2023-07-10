@@ -27,7 +27,7 @@
                                 {% else %}
                                 <li><a class="dropdown-item" href="{{ path('app_register')}}"><i class="bi-person-plus me-1"></i>Register</a></li>
                                 <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="{{ path('app_login')}}">Sign in</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_login')}}">Se Connecter</a></li>
                                 {% endif %}
                             </ul>
                         </li>
@@ -38,7 +38,7 @@
                         {% endif %} #}
                     </ul>
                     <form class="d-flex">
-                        <a class="btn btn-outline-dark" type="submit" href="#">
+                        <a class="btn btn-outline-dark" type="submit" href="{{ path('app_panier')}}">
                             <i class="bi-cart-fill me-1"></i>
                             Cart
                             <span class="badge bg-dark text-white ms-1 rounded-pill">{{app.session.get('panier') ? app.session.get('panier')| length :'0'}}</span>

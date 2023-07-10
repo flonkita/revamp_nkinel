@@ -8,14 +8,6 @@
 
 
 <section class="py-5">
-
-{# Message flash lors de l'ajout au panier #}
-                    {% for message in app.flashes('add_cart') %}
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            {{ message }} - Voir le <strong><a href="#">Panier</a></strong> 
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    {% endfor %}
                     
       <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -47,7 +39,7 @@
                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                 <div class="text-center">
                 <a class="btn btn-outline-dark mt-auto" href="{{ path('article_detail', {id: article.id}) }}">Afficher</a>
-                <a class="btn btn-outline-primary  mt-3" href="#">Ajouter au panier</a>
+                <a class="btn btn-outline-primary  mt-3" href="{{ path('panier_add', {id: article.id})}}">Ajouter au panier</a>
                 </div>
               </div>
             </div>

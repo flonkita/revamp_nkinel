@@ -89,9 +89,12 @@
                 <td colspan="6">TOTAL</td>
                 <td>{{ total }} €</td>
                 <td>
-                    <form action="#" method="POST">
-                        <button type="submit" class="btn btn-primary">PAYER ({{ total }} €)</button>
-                    </form>
+                     <a href="{{ path('app_paiement') }}"
+        class="btn btn-primary col-2 offset-col-1 d-flex justify-content-center align-items-center">
+        <span>
+            <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Payer
+        </span>
+    </a>
                 </td>
             </tr>
         </tfoot>

@@ -48,7 +48,7 @@
         <tbody>
             {% for item in items %}
             <tr>
-                <th scope="row">{{ item.article.id }}</th>
+                <th scope="row">{{loop.index}}</th>
                 <td>
                 <img src="{{ asset('/uploads/' ~ item.article.image) }}" alt="" style="width: 75px; height: 75px; object-fit: contain">
                 
@@ -70,7 +70,7 @@
                     </button>
                 </form>
             </td>
-            {% elseif app.user and article.stock == 0 %}
+            {% elseif app.user and item.article.stock == 0 %}
             <td class="text-danger">Rupture de stock</td>
             {% endif %}
                 <td>
@@ -89,7 +89,7 @@
                 <td colspan="6">TOTAL</td>
                 <td>{{ total }} €</td>
                 <td>
-                     <a href="{{ path('app_paiement') }}"
+                    <a href="{{ path('app_paiement') }}"
         class="btn btn-primary col-2 offset-col-1 d-flex justify-content-center align-items-center">
         <span>
             <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Payer

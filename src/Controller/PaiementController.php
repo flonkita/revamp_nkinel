@@ -9,20 +9,22 @@ use Stripe\Checkout\Session;
 use App\Service\PanierService;
 use App\Entity\CommandeProduit;
 use App\Repository\CommandeRepository;
+use Symfony\Component\Asset\UrlPackage;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
 
 class PaiementController extends AbstractController
 {
     /**
      * @Route("/paiement", name="app_paiement")
      */
-    public function index(PanierService $panierService, EntityManagerInterface $em, SessionInterface $session): Response
+    public function index(PanierService $panierService, EntityManagerInterface $em): Response
     {
+        
         // Stripe secret key
         $ssk = $this->getParameter('stripe.secretKey');
         Stripe::setApiKey($ssk); // On configure Stripe
@@ -57,13 +59,14 @@ class PaiementController extends AbstractController
 
 
             // On remplit le tableau pour Stripe
+
             $tableauPourStripe[] = [
                 'quantity' => $quantity,
                 'price_data' => [
                     'currency' => 'eur',
                     'product_data' => [
                         'name' => $article->getNom(),
-                        'images' => [$article->getImage()] // Lien ABSOLU (qui commence par "http(s)://") ; Pas obligatoire
+                        'images' =>  [$article->getImage() ? $this->getParameter('base_url').'/uploads/'.$article->getImage() : 'https://plchldr.co/i/500x500'] // Lien ABSOLU (qui commence par "http(s)://") ; Pas obligatoire
                     ],
                     'unit_amount' => $article->getPrix() * 100 // Prix en CENTIMES
                 ]
@@ -73,22 +76,23 @@ class PaiementController extends AbstractController
         // On sauvegarde la commande en BDD
         $em->persist($commande);
         $em->flush(); // Lien ABSOLU (qui commence par "http(s)://")
-    
-        $session = Session::create([
+        // dd($commande);
+        
+        $checkout = Session::create([
             'mode' => 'payment',
             'line_items' => $tableauPourStripe,
             'success_url' => $this->generateUrl('app_paiement_success', [
-                'token' => urlencode($commande->getToken()),
+                'token' => $commande->getToken(),
             ], UrlGeneratorInterface::ABSOLUTE_URL),
             'cancel_url' => $this->generateUrl('app_paiement_fail', [
-                'commande' => urlencode($commande->getId())
+                'commande' => $commande->getId()
             ], UrlGeneratorInterface::ABSOLUTE_URL),  // Lien ABSOLU (qui commence par "http(s)://")
         ]);
 
         // On vide le panier
         $panierService->clear();
 
-        return $this->redirect($session->url);
+        return $this->redirect($checkout->url);
     }
 
     /**
@@ -96,7 +100,7 @@ class PaiementController extends AbstractController
      * On "valide" la commande
      */
     /**
-     * @Route("/paiement/success/{token}", name="app_paiement_success")
+     * @Route("/paiement/success", name="app_paiement_success")
      */
     public function apres(string $token, CommandeRepository $commandeRepository, EntityManagerInterface $em): Response
     {
@@ -111,17 +115,17 @@ class PaiementController extends AbstractController
     /**
      * Le paiement a échoué
      * On supprime la commande
-     * On recrée le panier
      */
     /**
      * @Route("/paiement/echec/{commande}", name="app_paiement_fail")
      */
-    public function retournerAAvant(Commande $commande, PanierService $panierService, EntityManagerInterface $em): Response
+    public function return(Commande $commande, PanierService $panierService, EntityManagerInterface $em): Response
     {
-        $panierService->remplirPanier($commande);
+        // dd($panierService);
+        $panierService->clear($commande);
         $em->remove($commande);
         $em->flush();
 
-        return $this->render('payment/cancel.html.twig');
+        return $this->render('paiement/cancel.html.twig');
     }
 }

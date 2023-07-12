@@ -30,7 +30,7 @@ class Commande
     private $total;
 
     /**
-     * @ORM\OneToMany(targetEntity=CommandeProduit::class, mappedBy="commande",  cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=CommandeProduit::class, mappedBy="commande",  cascade={"persist", "remove"})
      */
     private $commandeProduits;
 

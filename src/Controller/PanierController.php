@@ -14,12 +14,10 @@ class PanierController extends AbstractController
      */
     public function index(PanierService $panierService): Response
     {
-
         return $this->render('panier/index.html.twig', [
             "items" => $panierService->showCart(),
-            "total" => $panierService->totalcart(),
+            "total" => $panierService->total() 
         ]);
-
     }
 
     /**

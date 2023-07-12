@@ -95,4 +95,5 @@ class PanierService {
         $this->session->remove('panier'); 
     }
     
+    
 }

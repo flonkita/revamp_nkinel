@@ -6,6 +6,7 @@
 parameters:
     stripe.secretKey: '%env(STRIPE_SECRET_KEY)%' # Variable globale
     images_directory: '%kernel.project_dir%/public/uploads/' # Là ou sera mis les images uploadés
+    base_url: '%env(BASE_URL)%'
 
 services:
     # default configuration for services in *this* file

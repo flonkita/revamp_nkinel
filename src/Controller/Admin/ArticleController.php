@@ -66,7 +66,7 @@ class ArticleController extends AbstractController
             #etape 4: on valide a doctrine que l'on veut enregisterer/persister en BDD
             $entityManager->flush();
             #etape 5: on affiche ou on redirge vers une autre page 
-            $session->getFlashBag()->add('create_article', 'L\'article a bien été ajouté.');
+            $session->getFlashBag()->add('create_article', 'Un article a bien été ajouté.');
         return $this -> redirectToRoute('admin_article_index');
 
         }
@@ -88,7 +88,7 @@ class ArticleController extends AbstractController
         if ($formArticle->isSubmitted() && $formArticle->isValid()) {
             $articleRepository->add($article, true);
 
-            $session->getFlashBag()->add('edit_article', 'L\'article a bien été modifié.');
+            $session->getFlashBag()->add('edit_article', 'Un article a bien été modifié.');
             return $this->redirectToRoute('admin_article_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -115,7 +115,7 @@ class ArticleController extends AbstractController
          #Etape 4 : On valide les modifications
          $entityManager->flush();
 
-         $session->getFlashBag()->add('delete_article', 'L\'article a bien été supprimé.');
+         $session->getFlashBag()->add('delete_article', 'Un article a bien été supprimé.');
 
         return $this->redirectToRoute('admin_article_index', [], Response::HTTP_SEE_OTHER);
     }

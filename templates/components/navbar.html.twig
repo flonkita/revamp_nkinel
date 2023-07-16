@@ -21,8 +21,10 @@
                         </li>
                         {% if is_granted('ROLE_ADMIN') %}
                         <a class="nav-link" href="{{ path('admin_index')}}">Dashboard</a>
+                        <a class="nav-link" href="{{ path('app_logout')}}">Se Déconnecter</a>
                         {% elseif is_granted('ROLE_USER') %}
                         <a class="nav-link" href="#">Mon compte</a>
+                        <a class="nav-link" href="{{ path('app_logout')}}">Se Déconnecter</a>
                         {% else %}
                         <a class="nav-link" href="{{ path('app_login')}}">Se Connecter</a>
                         {% endif %}

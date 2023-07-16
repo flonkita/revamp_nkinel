@@ -22,7 +22,7 @@ class IndexController extends AbstractController
         // $isTopVideos = $videoRepository->findBy(["isTop" => true]);
         $articles = $articleRepository->findAll();
         $users = $userRepository->findAll();
-        $commande = $commandeRepository->findAll();
+        $commande = $commandeRepository->findBy(['etat' =>'Validée']);
 
         return $this->render('admin/index.html.twig', [
             // 'isTopVideos' => $isTopVideos,

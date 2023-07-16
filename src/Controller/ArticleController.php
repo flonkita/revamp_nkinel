@@ -15,7 +15,7 @@ class ArticleController extends AbstractController
      */
     public function detail($id, ManagerRegistry $doctrine)
     {
-        #Etape 1 : Récupérer un livre 
+        #Etape 1 : Récupérer un article
         $article = $doctrine->getRepository(Article::class)->find($id);
 
         return $this->render('article/index.html.twig', [

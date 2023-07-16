@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="container mt-4">
-    <h1>Votre panier</h1>
+    <h1>Votre panier / PETIT DEJ :P</h1>
 
 {# Message flash lors de l'ajout au panier #}
 {% for message in app.flashes('add_panier') %}
@@ -59,25 +59,25 @@
                 <td>{{ item.quantity }}</td>
                 <td>{{ item.article.stock }}</td>
                 <td>{{ item.article.prix * item.quantity }} €</td>
-                {% if app.user and article.stock > 0 %}
+                {% if is_granted('ROLE_ADMIN','ROLE_USER') and item.article.stock > 0 %}
                 <td>
-                <form action="{{ path('app_panier_add', {article: article.id}) }}" method="post">
+                <form action="{{ path('panier_add', {id: item.article.id}) }}" method="post">
                     {# <input type="hidden" name="csrf_token" value="{{ csrf_token('ajouter_panier') }}" /> #}
-                    <input type="number" name="qtte" id="qtte" min="1" max="{{article.stock}}" step="1"
+                    <input type="number" name="qtte" id="qtte" min="1" max="{{item.article.stock}}" step="1"
                         placeholder="Quantité" style="max-width: 50px;" value="1">
                     <button type="submit" class="btn btn-primary">
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                     </button>
                 </form>
             </td>
-            {% elseif app.user and item.article.stock == 0 %}
+            {% elseif is_granted('ROLE_ADMIN','ROLE_USER') and item.article.stock == 0 %}
             <td class="text-danger">Rupture de stock</td>
             {% endif %}
                 <td>
-                    <a class="btn btn-danger flex-shrink-0" onclick="return confirm('Suppimer cet élément du panier ?');" href="{{ path('panier_delete', {id: item.article.id}) }}">
+                    <a class="btn btn-danger flex-shrink-0" href="{{ path('panier_delete', {id: item.article.id}) }}">
                         <i class="bi bi-cart-dash-fill me-1"></i>
                     </a>
-                    <a class="btn btn-primary flex-shrink-0" onclick="return confirm('Ajouter cet élément du panier ?');" href="{{ path('panier_add', {id: item.article.id}) }}">
+                    <a class="btn btn-primary flex-shrink-0" href="{{ path('panier_add', {id: item.article.id}) }}">
                         <i class="bi-cart-plus-fill me-1"></i>
                     </a>
                 </td>
@@ -90,9 +90,9 @@
                 <td>{{ total }} €</td>
                 <td>
                     <a href="{{ path('app_paiement') }}"
-        class="btn btn-primary col-2 offset-col-1 d-flex justify-content-center align-items-center">
+        class="btn btn-primary flex-shrink-0">
         <span>
-            <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Payer
+            <i class="bi bi-credit-card-2-back-fill"></i> Payer {{total}} €
         </span>
     </a>
                 </td>

@@ -8,12 +8,15 @@ use App\Entity\Commande;
 use Stripe\Checkout\Session;
 use App\Service\PanierService;
 use App\Entity\CommandeProduit;
+use App\Entity\User;
 use App\Repository\CommandeRepository;
-use Symfony\Component\Asset\UrlPackage;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 
@@ -79,8 +82,8 @@ class PaiementController extends AbstractController
         // dd($commande);
         
         $checkout = Session::create([
-            'mode' => 'payment',
             'line_items' => $tableauPourStripe,
+            'mode' => 'payment',
             'success_url' => $this->generateUrl('app_paiement_success', [
                 'token' => $commande->getToken(),
             ], UrlGeneratorInterface::ABSOLUTE_URL),
@@ -89,8 +92,6 @@ class PaiementController extends AbstractController
             ], UrlGeneratorInterface::ABSOLUTE_URL),  // Lien ABSOLU (qui commence par "http(s)://")
         ]);
 
-        // On vide le panier
-        $panierService->clear();
 
         return $this->redirect($checkout->url);
     }
@@ -100,16 +101,57 @@ class PaiementController extends AbstractController
      * On "valide" la commande
      */
     /**
-     * @Route("/paiement/success", name="app_paiement_success")
+     * @Route("/paiement/success/{token}", name="app_paiement_success")
      */
-    public function apres(string $token, CommandeRepository $commandeRepository, EntityManagerInterface $em): Response
+    public function apres(string $token, CommandeRepository $commandeRepository,PanierService $panierService, EntityManagerInterface $em, MailerInterface $mailer): Response
     {
         $commande = $commandeRepository->findOneBy(['token' => $token]);
         $commande->setEtat('Validée');
         $em->persist($commande);
         $em->flush();
 
-        return $this->render('payment/success.html.twig');
+        // On vide le panier
+        $panierService->clear();
+
+        $user = $this->getUser();
+
+        // Récupérer les CommandeProduits de la commande
+        $commandeProduits = $commande->getCommandeProduits();
+
+        // Initialiser le tableau pour les articles
+        $articles = [];
+
+        // Calculer le prix total de la commande
+        $prixTotal = 0;
+
+        foreach ($commandeProduits as $commandeProduit) {
+            $article = $commandeProduit->getArticle();
+            $prix = $article->getPrix();
+            $quantite = $commandeProduit->getQuantite();
+
+            $articles[] = [
+                'article' => $article,
+                'quantite' => $quantite,
+                'prix' => $prix,
+                'sousTotal' => $prix * $quantite,
+            ];
+
+            $prixTotal += $prix * $quantite;
+        }
+
+        $email = (new TemplatedEmail())
+        ->from(new Address('test@gmail.com', 'test'))
+        ->to($user->getEmail())
+        ->subject('Merci de votre achat')
+        ->htmlTemplate('emails/facture.html.twig')
+        ->context([
+            'articles' => $articles,
+            'prixTotal' => $prixTotal,
+        ]);
+
+        $mailer->send($email);
+
+        return $this->render('paiement/success.html.twig');
     }
 
     /**
@@ -121,10 +163,10 @@ class PaiementController extends AbstractController
      */
     public function return(Commande $commande, PanierService $panierService, EntityManagerInterface $em): Response
     {
-        // dd($panierService);
         $panierService->clear($commande);
         $em->remove($commande);
         $em->flush();
+        // dd($commande);
 
         return $this->render('paiement/cancel.html.twig');
     }

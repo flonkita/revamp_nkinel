@@ -32,9 +32,11 @@ class PaiementController extends AbstractController
         $ssk = $this->getParameter('stripe.secretKey');
         Stripe::setApiKey($ssk); // On configure Stripe
         $tableauPourStripe = []; // Un tableau pour Stripe
+        $user = $this->getUser();
 
         // Créer la commande
         $commande = new Commande;
+        $commande->setUser($user);
         $commande->setDate(new \DateTimeImmutable());
         $commande->setTotal($panierService->total());
         $commande->setEtat('En attente de paiement');
@@ -147,6 +149,8 @@ class PaiementController extends AbstractController
         ->context([
             'articles' => $articles,
             'prixTotal' => $prixTotal,
+            'commande' => $commande,
+            'user' => $user,
         ]);
 
         $mailer->send($email);

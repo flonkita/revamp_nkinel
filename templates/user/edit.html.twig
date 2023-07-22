@@ -1,0 +1,65 @@
+{% extends 'user/base.html.twig' %}
+
+{% block title %}Contact
+{% endblock %}
+
+{% block content %}
+	<div class="container-fluid">
+		<div class="container">
+			<div class="container-fluid p-3 m-4 w-100 mx-auto bg-white border rounded">
+				<h1 class="h3 mb-0 text-gray-800">Contact</h1>
+
+
+				<p class="mb-2">Modifier vos informations</p>
+				{{ form_start(formUser) }}
+					<div class ="row g-3">
+
+					<div class="col-6">
+        			{{form_row(formUser.prenom)}}
+					
+        			</div>
+					<div class="col-6">
+					{{form_row(formUser.email)}}
+					</div>
+					<div class="col-6">
+					{{form_row(formUser.plainPassword)}}
+					</div>
+					<div class="col-6">
+					{{form_row(formUser.confirmPassword)}}
+					</div>
+
+					<div class="col-6 mt-4">
+					{{form_row(formUser.submit)}}
+					</div>
+
+
+					</div>
+				{{ form_end(formUser) }}
+				</div>
+			</div>
+
+		</div>
+
+	{% endblock %}
+
+	{% block script_js %}
+
+
+		{% if app.session.flashBag.has('edit_user') %}
+			<script>
+				Toastify({
+text: "{{ app.session.flashBag.get('edit_user')[0] }}",
+duration: 3000,
+destination: "https://github.com/apvarun/toastify-js",
+newWindow: true,
+close: true,
+gravity: "top",
+position: "center",
+stopOnFocus: true,
+style: {
+background: "linear-gradient(to right, #FEBE10, #F0E68C)"
+}
+}).showToast();
+			</script>
+		{% endif %}
+	{% endblock %}

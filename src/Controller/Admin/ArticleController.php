@@ -82,10 +82,31 @@ class ArticleController extends AbstractController
      */
     public function edit(Request $request, Article $article, ArticleRepository $articleRepository, SessionInterface $session): Response
     {
+        $entityManager = $this->getDoctrine()->getManager();
         $formArticle = $this->createForm(ArticleType::class, $article);
         $formArticle->handleRequest($request);
 
         if ($formArticle->isSubmitted() && $formArticle->isValid()) {
+            $data = $formArticle->getData();
+
+            if ($formArticle->get('image')->getData() == null) {
+                $image_name = $article->getImage();
+            } else {
+                $image_name = $formArticle->get('image')->getData()->getClientOriginalName();
+                $image_name = uniqid() . $image_name;
+                $formArticle->get('image')->getData()->move(
+                    $this->getParameter('images_directory'),
+                    $image_name
+                );
+            }
+
+
+            if ($image_name) {
+                $data->setImage($image_name);
+            }
+
+            $entityManager->persist($data);
+            $entityManager->flush();
             $articleRepository->add($article, true);
 
             $session->getFlashBag()->add('edit_article', 'Un article a bien été modifié.');

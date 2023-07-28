@@ -1,3 +1,44 @@
-<footer class="py-5 bg-dark mb-0">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Nkinel 2023</p></div>
-        </footer>
+<main class="container">
+                    <div class="row">                    
+                        <div class="livraisons col-md-4">
+                            <i class="fa-solid fa-truck"></i>   <br>
+                            <p class="Titre1" style="margin-top:7px;">Livraisons garanties</p>
+                            <p class="SousTitre1"></p>par des transporteurs spécialisés</p> 
+                        </div>
+                    
+                        <div class="paiement col-md-4">
+                            <i class="fa-solid fa-lock"></i> <br>
+                            <p class="Titre2" style="margin-top:7px;"></p>Paiement sécurisés</p>
+                            <p class="SousTitre2" style="font-size:14px;"></p>par CB ou 3x sans frais</p> 
+                        </div>
+
+                        <div class="retours col-md-4">
+                            <i class="fa-solid fa-rotate-left"></i> <br>
+                            <p class="Titre3"></p>Retours gratuits</p>
+                            <p class="SousTitre3"></p>15 jours pour changer d’avis</p> 
+                        </div>
+                    </div>
+                </main>
+<footer class="py-5 bg-dark text-white" style="position: static; left: 0; bottom: 0; width: 100%;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h5>Espace Client</h5>
+                <ul class="list-unstyled">
+                    <li><a class="nav-link" href="{{ path('cgv') }}">CGV</a></li>
+                    <li><a class="nav-link" href="{{ path('mentions_legales') }}">Mentions légales</a></li>
+                    <li><a class="nav-link" href="{{ path('conditions_utilisations') }}">Conditions d'utilisation</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h5>Mentions légales</h5>
+                <ul class="list-unstyled">
+                    <li><a class="nav-link" href="{{ path('mentions_legales') }}">Mentions légales</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <p>&copy; {{ 'now'|date('Y') }} Nkinel</p>
+            </div>
+        </div>
+    </div>
+</footer>

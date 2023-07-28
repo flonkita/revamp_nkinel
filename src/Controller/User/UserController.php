@@ -2,8 +2,8 @@
 
 namespace App\Controller\User;
 
-use App\Controller\User\UserParentController;
 use App\Entity\User;
+use App\Controller\User\UserParentController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use App\Form\EditUserType;
 use Doctrine\ORM\EntityManagerInterface;

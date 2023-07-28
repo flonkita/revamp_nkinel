@@ -55,7 +55,6 @@ class ArticleController extends AbstractController
                     $this->getParameter('images_directory'),
                     $image
                 );
-
             }
             #Etape 1 : On appel l'entity manager de doctrine
             $entityManager = $doctrine->getManager();

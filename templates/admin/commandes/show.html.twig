@@ -1,0 +1,70 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Détails de la commande
+{% endblock %}
+
+
+{% block content %}
+	<div class="container-fluid">
+
+		<h1 class="h3 mb-0 text-gray-800">Détails de la commande</h1>
+
+		<p class="mb-4">Liste de toutes les commandes effectuées par tous les utilisateurs.</p>
+
+		<!-- DataTales Example -->
+		<div class="card shadow mb-4">
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+						<p>Numéro de commande :
+							{{ commande.id }}</p>
+						<p>Date de la commande :
+							{{ commande.date|date('d/m/Y H:i:s') }}</p>
+
+						<h2>Produits commandés :</h2>
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>Produit</th>
+									<th>Prix unitaire</th>
+									<th>Quantité</th>
+									<th>Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for produit in commande.getCommandeProduits() %}
+									<tr>
+										<td>{{ produit.article.nom }}</td>
+										<td>{{ produit.article.prix }}
+											€</td>
+										<td>{{ produit.quantite }}</td>
+										<td>{{ produit.article.prix * produit.quantite }}
+											€</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="3">Total :</td>
+									<td>{{ commande.total }}
+										€</td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+				</div>
+
+				<h2>Informations sur l'acheteur :</h2>
+				{% if commande.user is not null %}
+					<p>Nom :
+						{{ commande.user.prenom }}</p>
+					<p>Email :
+						{{ commande.user.email }}</p>
+				{% else %}
+					<td>N/A</td>
+					<td>N/A</td>
+				{% endif %}
+
+			</div>
+		</div>
+	{% endblock %}

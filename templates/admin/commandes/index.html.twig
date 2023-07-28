@@ -1,0 +1,64 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Commande List
+{% endblock %}
+
+{% block content %}
+	<div class="container-fluid">
+
+		<h1 class="h3 mb-0 text-gray-800">Liste des commandes</h1>
+
+		<p class="mb-4">Liste de toutes les commandes effectuées par tous les utilisateurs.</p>
+
+		<!-- DataTales Example -->
+		<div class="card shadow mb-4">
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Utilisateur</th>
+								<th>Date</th>
+								<th>Total</th>
+								<th>État</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for commande in pagination %}
+								<tr>
+									<td>{{ commande.id }}</td>
+									{% if commande.user is not null %}
+										<td>{{ commande.user.prenom }}
+										{% else %}
+											<td>N/A</td>
+										{% endif %}
+										<td>{{ commande.date|date('d/m/Y H:i:s') }}</td>
+										<td>{{ commande.total }}
+											€</td>
+										<td>{{ commande.etat }}</td>
+										<td>
+											<a href="{{ path('admin_commande_detail', {'id': commande.id}) }}" class="btn btn-info btn-icon-split">
+												<span class="icon text-white-50">
+													<i class="fas fa-eye"></i>
+												</span>
+												<span class="text">Voir détails</span>
+											</a>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="d-flex justify-content-center">
+				{{ knp_pagination_render(pagination) }}
+			</div>
+		</div>
+
+		<!-- Pagination -->
+
+	</div>
+{% endblock %}

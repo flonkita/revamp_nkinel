@@ -17,14 +17,15 @@
        {% for article in pagination %}
           <div class="col mb-5">
             <div class="card h-100">
-            <!-- Sale badge-->
-            {# <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">{{article.category.name|default('-')}}</div> #}
             <!-- Product image-->
-                {% if article.image %}
-                <img class="card-img-top" src="{{ asset('/uploads/' ~ article.image) }}" style="max-width: 18rem;height: 18rem"  alt="..." />
-                {% else %}
-                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" style="object:cover;height: 15rem"  alt="..." />
+               {% if article.image %}
+                  <a href="{{ path('article_detail', {id: article.id}) }}">
+                  <img class="card-img-top" src="{{ asset('/uploads/' ~ article.image) }}" style="max-width: 18rem;height: 18rem" alt="..." />
+                  </a>
+                  {% else %}
+                  <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" style="object-fit: cover; height: 15rem" alt="..." />
                 {% endif %}
+
               <!-- Product details-->
               <div class="card-body p-4">
                 <div class="text-center">
@@ -38,7 +39,6 @@
                 <!-- Product actions-->
                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                 <div class="text-center">
-                <a class="btn btn-outline-dark mt-auto" href="{{ path('article_detail', {id: article.id}) }}">Afficher</a>
                 <a class="btn btn-outline-primary  mt-3" href="{{ path('panier_add', {id: article.id})}}">Ajouter au panier</a>
                 </div>
               </div>

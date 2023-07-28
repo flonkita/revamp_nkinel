@@ -52,6 +52,13 @@ class CommandeRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    public function paginationQuery()
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.id', 'ASC')
+            ->getQuery();
+    }
+
 
     //    public function findOneBySomeField($value): ?Commande
     //    {

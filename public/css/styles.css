@@ -99,7 +99,7 @@ body {
   line-height: var(--bs-body-line-height);
   color: var(--bs-body-color);
   text-align: var(--bs-body-text-align);
-  background-color: var(--bs-body-bg);
+  background-color: var(--bs-orange);
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -8298,6 +8298,10 @@ textarea.form-control-lg {
   visibility: hidden !important;
 }
 
+.page-height-panier {
+  min-height: 50vh;
+}
+
 @media (min-width: 576px) {
   .float-sm-start {
     float: left !important;
@@ -10823,4 +10827,5 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+   
 }

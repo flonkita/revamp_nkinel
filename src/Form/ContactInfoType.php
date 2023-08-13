@@ -6,8 +6,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 class ContactInfoType extends AbstractType
 {
@@ -16,26 +17,14 @@ class ContactInfoType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Nom',
-                'constraints' =>
-                new Regex([
-                'pattern' => '^[a-zA-Z0-9\s\'",.!@#%^&*()\-_+=;:<>\/]+$',
-                'message' => 'Le nom ne doit contenir que des lettres, des chiffres et certains caractères spéciaux.',
-                ])
             ])
             ->add('email', TextType::class, [
-                'label' => 'Email',
-            'constraints' =>
-            new Regex([
-                'pattern' => '^[a-zA-Z0-9\s\'",.!@#%^&*()\-_+=;:<>\/]+$',
-                'message' => 'Le nom ne doit contenir que des lettres, des chiffres et certains caractères spéciaux.',
+                'label' => 'Email'
             ])
-
-            ])
-            ->add('message', TextType::class, [
+            ->add('message', TextareaType::class, [
                 'label' => 'Message',
             'constraints' =>
-            new Regex([
-                'pattern' => '/^[^\[\]{}]*$/',
+            new NotNull([
                 'message' => 'Le message ne doit pas contenir de crochets ou d\'accolades.',
             ])
 

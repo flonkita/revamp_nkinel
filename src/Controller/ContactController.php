@@ -28,7 +28,7 @@ class ContactController extends AbstractController
             $contact = $form->getData();
             $email = (new TemplatedEmail())
                 ->from(new Address($contact['email'], $contact['name']))
-                ->to(new Address("test@gmail.com", "test"))
+                ->to(new Address("admin@nkinel.fr", "Nkinel Assist Bot"))
                 ->subject(' Nkinel :  Nouveau Contact')
                 ->htmlTemplate('emails/contact.html.twig')
                 ->context([

@@ -27,7 +27,7 @@ class PaiementController extends AbstractController
      */
     public function index(PanierService $panierService, EntityManagerInterface $em): Response
     {
-        
+
         // Stripe secret key
         $ssk = $this->getParameter('stripe.secretKey');
         Stripe::setApiKey($ssk); // On configure Stripe
@@ -71,7 +71,7 @@ class PaiementController extends AbstractController
                     'currency' => 'eur',
                     'product_data' => [
                         'name' => $article->getNom(),
-                        'images' =>  [$article->getImage() ? $this->getParameter('base_url').'/uploads/'.$article->getImage() : 'https://plchldr.co/i/500x500'] // Lien ABSOLU (qui commence par "http(s)://") ; Pas obligatoire
+                        'images' =>  [$article->getImage() ? $this->getParameter('base_url') . '/uploads/' . $article->getImage() : 'https://plchldr.co/i/500x500'] // Lien ABSOLU (qui commence par "http(s)://") ; Pas obligatoire
                     ],
                     'unit_amount' => $article->getPrix() * 100 // Prix en CENTIMES
                 ]
@@ -82,7 +82,7 @@ class PaiementController extends AbstractController
         $em->persist($commande);
         $em->flush(); // Lien ABSOLU (qui commence par "http(s)://")
         // dd($commande);
-        
+
         $checkout = Session::create([
             'line_items' => $tableauPourStripe,
             'mode' => 'payment',
@@ -105,7 +105,7 @@ class PaiementController extends AbstractController
     /**
      * @Route("/paiement/success/{token}", name="app_paiement_success")
      */
-    public function apres(string $token, CommandeRepository $commandeRepository,PanierService $panierService, EntityManagerInterface $em, MailerInterface $mailer): Response
+    public function apres(string $token, CommandeRepository $commandeRepository, PanierService $panierService, EntityManagerInterface $em, MailerInterface $mailer): Response
     {
         $commande = $commandeRepository->findOneBy(['token' => $token]);
         $commande->setEtat('Validée');
@@ -142,16 +142,16 @@ class PaiementController extends AbstractController
         }
 
         $email = (new TemplatedEmail())
-        ->from(new Address('test@gmail.com', 'test'))
-        ->to($user->getEmail())
-        ->subject('Merci de votre achat')
-        ->htmlTemplate('emails/facture.html.twig')
-        ->context([
-            'articles' => $articles,
-            'prixTotal' => $prixTotal,
-            'commande' => $commande,
-            'user' => $user,
-        ]);
+            ->from(new Address("admin@nkinel.fr", "Nkinel Assist Bot"))
+            ->to($user->getEmail())
+            ->subject('Merci de votre achat')
+            ->htmlTemplate('emails/facture.html.twig')
+            ->context([
+                'articles' => $articles,
+                'prixTotal' => $prixTotal,
+                'commande' => $commande,
+                'user' => $user,
+            ]);
 
         $mailer->send($email);
 

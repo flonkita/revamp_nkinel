@@ -21,4 +21,26 @@
     {{form_end(form)}}
     </div>
 </div>
+
+{% endblock %}
+
+
+{% block script_js %}
+{% if app.session.flashBag.has('mail_info') %}
+	<script>
+		Toastify({
+text: "{{ app.session.flashBag.get('mail_info')[0] }}",
+duration: 3000,
+destination: "https://github.com/apvarun/toastify-js",
+newWindow: true,
+close: true,
+gravity: "top",
+position: "center",
+stopOnFocus: true,
+style: {
+background: "linear-gradient(to right, #FF0000, #DC143C)"
+}
+}).showToast();
+	</script>
+{% endif %}
 {% endblock %}

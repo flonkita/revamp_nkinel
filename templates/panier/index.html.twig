@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nkinel - Panier{% endblock %}
+{% block title %}Panier{% endblock %}
 
 {% block body %}
 <div class="container mt-4 page-height-panier">
@@ -72,8 +72,9 @@
                 <td colspan="5">TOTAL</td>
                 <td>{{ total }} €</td>
                 <td>
+
                             {% if is_granted('ROLE_USER') %}
-                            <a href="{{ path('app_paiement') }}" class="btn btn-primary flex-shrink-0">
+                                <a href="{{ path('app_livraison_new') }}" class="btn btn-primary flex-shrink-0">
                                 <span>
                                 <i class="bi bi-credit-card-2-back-fill"></i> Payer {{total}} €
                                 </span>

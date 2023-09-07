@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ArticleController!{% endblock %}
+{% block title %}{{article.nom|capitalize}}{% endblock %}
 
 {% block body %}
 
@@ -15,7 +15,7 @@
                     {% endif %}
                     </div>
                     <div class="col-md-6">
-                        <div class="small mb-1">SKU: BST-498</div>
+                        <div class="small mb-1">SKU: BST-{{article.id}}</div>
                         <h1 class="display-5 fw-bolder">{{article.nom|upper}}</h1>
                         <div class="fs-5 mb-5">
                             <span>{{article.prix}}€</span>

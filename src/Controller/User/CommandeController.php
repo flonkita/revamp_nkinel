@@ -2,6 +2,7 @@
 
 namespace App\Controller\User;
 
+use App\Entity\Commande;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,9 +26,11 @@ class CommandeController extends AbstractController
             'user' => $user,
         ]);
 
+        // dd($commandes);
         // Passer les commandes au template pour les afficher dans le tableau
         return $this->render('user/commandes.html.twig', [
             'commandes' => $commandes,
+            'user' => $user,
         ]);
     }
 }

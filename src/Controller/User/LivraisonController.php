@@ -20,7 +20,7 @@ class LivraisonController extends AbstractController
      */
     public function index(LivraisonRepository $livraisonRepository): Response
     {
-        return $this->render('livraison/index.html.twig', [
+        return $this->render('user/livraison/index.html.twig', [
             'livraisons' => $livraisonRepository->findAll(),
         ]);
     }
@@ -41,7 +41,7 @@ class LivraisonController extends AbstractController
             return $this->redirectToRoute('app_paiement', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('livraison/new.html.twig', [
+        return $this->renderForm('user/livraison/new.html.twig', [
             'livraison' => $livraison,
             'form' => $form,
         ]);
@@ -52,7 +52,7 @@ class LivraisonController extends AbstractController
      */
     public function show(Livraison $livraison): Response
     {
-        return $this->render('livraison/show.html.twig', [
+        return $this->render('user/livraison/show.html.twig', [
             'livraison' => $livraison,
         ]);
     }
@@ -71,7 +71,7 @@ class LivraisonController extends AbstractController
             return $this->redirectToRoute('app_livraison_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('livraison/edit.html.twig', [
+        return $this->renderForm('user/livraison/edit.html.twig', [
             'livraison' => $livraison,
             'form' => $form,
         ]);
